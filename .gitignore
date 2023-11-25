@@ -1,0 +1,10 @@
+.idea
+
+.env
+docker-compose.override.yml
+
+/dev/docker/mysql/data
+/vendor/
+/sites/*
+!/sites/lamp.loc/
+
