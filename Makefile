@@ -31,10 +31,10 @@ d.build:
 d.build.all:
 	docker-compose up -d --build
 
-d.recreate:
+d.force-recreate:
 	docker-compose up --no-deps -d --build $(filter-out $@,$(MAKECMDGOALS))
 
-d.recreate.all:
+d.force-recreate.all:
 	docker-compose up -d --force-recreate
 
 d.test:

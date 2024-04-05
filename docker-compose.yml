@@ -25,7 +25,7 @@ services:
         UID: $UID
         GUID: $GUID
         COMPOSER_VER: $COMPOSER_VER
-        PHP_VER: $PHP_VER
+        PHP_VER: 8.2
     container_name: "${PROJECT_NAME}_php"
     environment:
       PHP_SENDMAIL_PATH: /usr/sbin/sendmail -t -i -S mailhog:1025
@@ -40,36 +40,36 @@ services:
     networks:
       - docker-lamp-network
 
-#  db:
-#    image: mysql:8
-#    container_name: "${PROJECT_NAME}_db"
-#    stop_grace_period: 30s
-#    environment:
-#      MYSQL_ROOT_PASSWORD: $DB_ROOT_PASSWORD
-#      MYSQL_DATABASE: $DB_NAME
-#      MYSQL_USER: $DB_USER
-#      MYSQL_PASSWORD: $DB_PASSWORD
-#    ports:
-#      - "33066:3306"
-#    volumes:
-#      - ./dev/docker/mysql/data:/var/lib/mysql
-#    networks:
-#      - docker-lamp-network
+  db:
+    image: mysql:8
+    container_name: "${PROJECT_NAME}_db"
+    stop_grace_period: 30s
+    environment:
+      MYSQL_ROOT_PASSWORD: $DB_ROOT_PASSWORD
+      MYSQL_DATABASE: $DB_NAME
+      MYSQL_USER: $DB_USER
+      MYSQL_PASSWORD: $DB_PASSWORD
+    ports:
+      - "33066:3306"
+    volumes:
+      - ./dev/docker/mysql/data:/var/lib/mysql
+    networks:
+      - docker-lamp-network
 
-#  pma:
-#    image: phpmyadmin/phpmyadmin:5.0.0
-#    container_name: "${PROJECT_NAME}_pma"
-#    environment:
-#      PMA_HOST: db
-#      PMA_USER: root
-#      PMA_PASSWORD: $DB_ROOT_PASSWORD
-#      PHP_UPLOAD_MAX_FILESIZE: 1G
-#      PHP_MAX_INPUT_VARS: 1G
-#      UPLOAD_LIMIT: 1G
-#    ports:
-#      - "8081:80"
-#    networks:
-#      - docker-lamp-network
+  pma:
+    image: phpmyadmin/phpmyadmin:5.0.0
+    container_name: "${PROJECT_NAME}_pma"
+    environment:
+      PMA_HOST: db
+      PMA_USER: root
+      PMA_PASSWORD: $DB_ROOT_PASSWORD
+      PHP_UPLOAD_MAX_FILESIZE: 1G
+      PHP_MAX_INPUT_VARS: 1G
+      UPLOAD_LIMIT: 1G
+    ports:
+      - "8081:80"
+    networks:
+      - docker-lamp-network
 
 networks:
   docker-lamp-network:
