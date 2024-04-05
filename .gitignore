@@ -8,3 +8,5 @@ docker-compose.override.yml
 /sites/*
 !/sites/lamp.loc/
 
+/dev/docker/nginx/sites-enabled/*
+!/dev/docker/nginx/sites-enabled/sites-enabled/default.loc
