@@ -24,5 +24,6 @@ Make sure you have `PHP_EXTENSIONS_DISABLE` env var overridden in your docker-co
 - [ ] Add xdebug
 - [ ] Add xhprof
 - [ ] Add ability to disable xhprof, xdebug
+- [ ] Add SSL
 - [ ] Add special nginx configs for WP Multisite, WP Single site
 - [ ] Write documentation
