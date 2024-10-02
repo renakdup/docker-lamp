@@ -1,0 +1,24 @@
+; DOC: https://xdebug.org/docs/all_settings
+; Example: https://github.com/wodby/php/blob/master/8/templates/docker-php-ext-xdebug.ini.tmpl
+[xdebug]
+xdebug.mode = {{ getenv "PHP_XDEBUG_MODE" "off" }}
+xdebug.start_with_request = {{ getenv "PHP_XDEBUG_START_WITH_REQUEST" "default" }}
+xdebug.client_host = {{ getenv "PHP_XDEBUG_CLIENT_HOST" "host.docker.internal" }}
+xdebug.client_port = {{ getenv "PHP_XDEBUG_CLIENT_PORT" "9003" }}
+
+; DOC: The xdebug.log_level setting controls how much information is logged.
+xdebug.log_level = {{ getenv "PHP_XDEBUG_LOG_LEVEL" "3" }}
+
+xdebug.output_dir = {{ getenv "TMP_DIRECTORY" }}/xdebug
+xdebug.profiler_output_name = {{ getenv "PHP_XDEBUG_PROFILER_OUTPUT_NAME" "cachegrind.out.%p" }}
+
+;xdebug.trigger_value = "{{ getenv "PHP_XDEBUG_TRIGGER_VALUE" "" }}"
+
+;{{ if getenv "PHP_XDEBUG_IDEKEY" }}
+;xdebug.idekey = {{ getenv "PHP_XDEBUG_IDEKEY" }}
+;{{ end }}
+
+; DOC: errors
+xdebug.force_display_errors = {{ getenv "PHP_XDEBUG_FORCE_DISPLAY_ERRORS" "0" }}
+xdebug.force_error_reporting = {{ getenv "PHP_XDEBUG_FORCE_ERROR_REPORTING" "0" }}
+xdebug.log = {{ getenv "PHP_XDEBUG_LOG" "/proc/self/fd/2" }}
