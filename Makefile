@@ -16,9 +16,6 @@ d.up:
 d.ps:
 	docker ps
 
-d.restart: d.down
-	@$(MAKE) up
-
 d.down:
 	docker-compose down --remove-orphans
 
@@ -31,11 +28,20 @@ d.build:
 d.build.all:
 	docker-compose up -d --build
 
+d.build-with-log:
+	docker-compose build $(filter-out $@,$(MAKECMDGOALS)) > tmp/build.log
+
 d.force-recreate:
 	docker-compose up --no-deps -d --build $(filter-out $@,$(MAKECMDGOALS))
 
 d.force-recreate.all:
 	docker-compose up -d --force-recreate
+
+d.restart:
+	docker-compose restart $(filter-out $@,$(MAKECMDGOALS))
+
+d.restart.all:
+	docker-compose restart
 
 d.test:
 	docker run hello-world
@@ -46,6 +52,9 @@ d.test:
 nginx.connect:
 	docker-compose exec nginx sh
 
+nginx.logs:
+	docker-compose logs nginx -f
+
 
 ##########################
 # PHP
@@ -55,6 +64,9 @@ php.connect:
 
 php.connect.root:
 	docker-compose exec --user=root php bash
+
+php.logs:
+	docker-compose logs php -f
 
 
 ##########################
