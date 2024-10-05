@@ -1,34 +1,25 @@
 #!/bin/bash
 
-set -x
-
-_gotpl() {
-  if [[ -f "/etc/gotpl/$1" ]]; then
-      gotpl "/etc/gotpl/$1" > "$2"
-  fi
-}
 
 prepare_file_structure() {
-  mkdir -p ${PHP_XDEBUG_OUTPUT_DIR}
+  mkdir -p /var/www/tmp/xdebug
+  mkdir -p /var/www/tmp/xhprof
 }
 
-process_templates() {
-  _gotpl "docker-php.ini.tmpl" "${PHP_INI_DIR}/conf.d/docker-php.ini"
-  _gotpl "docker-php-ext-xdebug.ini.tmpl" "${PHP_INI_DIR}/conf.d/docker-php-ext-xdebug.ini"
+load_configs() {
+  cp /etc/docker-php-configs/ini/docker-php.ini ${PHP_INI_DIR}/conf.d/docker-php.ini
+  cp /etc/docker-php-configs/ini/docker-php-ext-xdebug.ini ${PHP_INI_DIR}/conf.d/docker-php-ext-xdebug.ini
+  cp /etc/docker-php-configs/ini/docker-php-ext-xhprof.ini ${PHP_INI_DIR}/conf.d/docker-php-ext-xhprof.ini
+  cp /etc/docker-php-configs/ini/docker-php-ext-pcov.ini ${PHP_INI_DIR}/conf.d/docker-php-ext-pcov.ini
+  cp /etc/docker-php-configs/ini/docker-php-ext-opcache.ini ${PHP_INI_DIR}/conf.d/docker-php-ext-opcache.ini
 
-
-  #_gotpl "docker-php-ext-xhprof.ini.tmpl" "${PHP_INI_DIR}/conf.d/docker-php-ext-xhprof.ini"
-  #_gotpl "docker-php-ext-pcov.ini.tmpl" "${PHP_INI_DIR}/conf.d/docker-php-ext-pcov.ini"
-  #_gotpl "docker-php-ext-opcache.ini.tmpl" "${PHP_INI_DIR}/conf.d/docker-php-ext-opcache.ini"
-
-  _gotpl "msmtprc.tmpl" "/etc/msmtprc"
+  cp /etc/docker-php-configs/msmtprc /etc/msmtprc
 }
 
-process_templates
+load_configs
 prepare_file_structure
 #disable_modules
 
-set +x
 
 # Run general command
 exec "$@"

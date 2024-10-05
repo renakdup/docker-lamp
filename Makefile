@@ -32,7 +32,7 @@ d.build-with-log:
 	docker-compose build $(filter-out $@,$(MAKECMDGOALS)) > tmp/build.log
 
 d.force-recreate:
-	docker-compose up --no-deps -d --build $(filter-out $@,$(MAKECMDGOALS))
+	docker-compose up --no-deps -d --force-recreate $(filter-out $@,$(MAKECMDGOALS))
 
 d.force-recreate.all:
 	docker-compose up -d --force-recreate
@@ -85,7 +85,6 @@ mysql.export:
 
 mysql.import:
 	docker-compose exec mysql mysql -uroot -p${MYSQL_ROOT_PASSWORD} ${MYSQL_DATABASE} < import_db.sql
-
 
 
 

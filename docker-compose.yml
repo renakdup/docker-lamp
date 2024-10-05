@@ -6,9 +6,9 @@ services:
     container_name: "${PROJECT_NAME}_nginx"
     depends_on:
       - php
-    working_dir: /var/www/html
+    working_dir: /var/www/sites
     volumes:
-      - ./sites/:/var/www/html
+      - ./sites/:/var/www/sites
       - ./dev/docker/nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./dev/docker/nginx/include/:/etc/nginx/include
       - ./dev/docker/nginx/sites-enabled/:/etc/nginx/sites-enabled
@@ -24,7 +24,7 @@ services:
       args:
         UID: $UID
         GUID: $GUID
-        COMPOSER_VER: $COMPOSER_VER
+        PHP_COMPOSER_VER: $PHP_COMPOSER_VER
         PHP_VER: $PHP_VER
     container_name: "${PROJECT_NAME}_php"
     environment:
@@ -32,16 +32,11 @@ services:
       DB_USER: $DB_USER
       DB_PASSWORD: $DB_PASSWORD
       DB_NAME: $DB_NAME
-      # By default xdebug extension also disabled.
-      PHP_EXTENSIONS_DISABLE: 'xhprof,xdebug'
-#      # Xdebug
-#      PHP_XDEBUG_MODE: profile
-#      PHP_XDEBUG_OUTPUT_DIR: /var/www/tmp/xdebug/
-#      PHP_XDEBUG_USE_COMPRESSION: false
     volumes:
+      - ./dev/docker/php-fpm/configs/:/etc/docker-php-configs/
       - ./dev/:/var/www/dev
       - ./tmp/:/var/www/tmp
-      - ./sites/:/var/www/html
+      - ./sites/:/var/www/sites
     networks:
       - lamp-network
 

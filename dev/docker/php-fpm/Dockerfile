@@ -6,12 +6,10 @@ LABEL version="0.2"
 LABEL maintaner="Andrei Pisarevskii <renakdup@gmail.com>"
 LABEL source_url="https://github.com/renakdup/"
 
-ARG COMPOSER_VER
+ARG PHP_COMPOSER_VER
 ARG UID
 ARG GUID
 ARG USER=www-data
-
-ENV PHP_EXTENSIONS_DISABLE='xdebug,xhprof';
 
 # Configuring OS
 RUN set -xe; \
@@ -43,6 +41,9 @@ RUN set -xe; \
       curl \
       git \
       rsync \
+      procps \
+      htop \
+      iputils-ping \
       netcat-traditional \
       msmtp \
       # sendmail alias to msmtp
@@ -80,11 +81,8 @@ RUN set -xe; \
       /etc/msmtprc; \
     echo 'alias ll="ls -la --color"' >>  /etc/bash.bashrc
 
-# Templater
-RUN curl -sL https://github.com/wodby/gotpl/releases/download/0.3.3/gotpl-linux-amd64.tar.gz | tar xz -C /usr/local/bin
-
 # Install Composer
-RUN wget https://getcomposer.org/download/${COMPOSER_VER}/composer.phar && \
+RUN wget https://getcomposer.org/download/${PHP_COMPOSER_VER}/composer.phar && \
     chmod +x composer.phar && \
     mv composer.phar /usr/local/bin/composer
 
@@ -93,10 +91,10 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
     chmod +x wp-cli.phar && \
     mv wp-cli.phar /usr/local/bin/wp
 
-WORKDIR /var/www/html
+WORKDIR /var/www/sites
 USER ${USER}
 
-COPY templates /etc/gotpl/
+COPY configs /etc/docker-php-configs/
 COPY docker-entrypoint.sh /
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
