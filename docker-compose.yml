@@ -27,8 +27,6 @@ services:
         COMPOSER_VER: $COMPOSER_VER
         PHP_VER: $PHP_VER
     container_name: "${PROJECT_NAME}_php"
-    depends_on:
-      - mailhog
     environment:
       DB_HOST: $DB_HOST
       DB_USER: $DB_USER
@@ -36,8 +34,13 @@ services:
       DB_NAME: $DB_NAME
       # By default xdebug extension also disabled.
       PHP_EXTENSIONS_DISABLE: 'xhprof,xdebug'
+#      # Xdebug
+#      PHP_XDEBUG_MODE: profile
+#      PHP_XDEBUG_OUTPUT_DIR: /var/www/tmp/xdebug/
+#      PHP_XDEBUG_USE_COMPRESSION: false
     volumes:
       - ./dev/:/var/www/dev
+      - ./tmp/:/var/www/tmp
       - ./sites/:/var/www/html
     networks:
       - lamp-network
@@ -73,14 +76,14 @@ services:
     networks:
       - lamp-network
 
-  mailhog:
-    image: mailhog/mailhog
-    restart: unless-stopped
-    ports:
-      - "1025"
-      - "8025:8025"
-    networks:
-      - lamp-network
+#  mailhog:
+#    image: mailhog/mailhog
+#    restart: unless-stopped
+#    ports:
+#      - "1025"
+#      - "8025:8025"
+#    networks:
+#      - lamp-network
 
 
 networks:

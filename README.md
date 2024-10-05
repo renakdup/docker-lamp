@@ -24,7 +24,11 @@ Make sure you have `PHP_EXTENSIONS_DISABLE` env var overridden in your docker-co
 - [x] Implemented working LAMP
 - [x] Add mailhog
 - [ ] Chose right server name
-- [ ] Add xdebug
+- [x] Add xdebug
+  - [x] Profiler
+  - [x] Debug
+  - [ ] Trace
+  - [ ] Add default const to pass xdebug settings
 - [ ] Add xhprof
 - [ ] Add ability to disable xhprof, xdebug
 - [ ] Add SSL

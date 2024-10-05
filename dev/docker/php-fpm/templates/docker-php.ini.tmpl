@@ -17,12 +17,10 @@ log_errors = {{ getenv "PHP_LOG_ERRORS" "On" }}
 log_errors_max_len = {{ getenv "PHP_LOG_ERRORS_MAX_LEN" "0" }}
 error_log = /proc/self/fd/2
 
-[mail function]
-sendmail_path = {{ getenv "PHP_SENDMAIL_PATH" "/usr/bin/msmtp -t -i" }}
-mail.mixed_lf_and_crlf = {{ getenv "PHP_MAIL_MIXED_LF_AND_CRLF" "Off" }}
+; should work without it
+;[mail function]
+;sendmail_path = {{ getenv "PHP_SENDMAIL_PATH" "/usr/bin/msmtp -t -i" }}
+;mail.mixed_lf_and_crlf = {{ getenv "PHP_MAIL_MIXED_LF_AND_CRLF" "Off" }}
 
 [Date]
 date.timezone = {{ getenv "PHP_DATE_TIMEZONE" "UTC"}}
-
-;[mail function]
-;sendmail_path = "{{ getenv "PHP_SENDMAIL_PATH" "/usr/bin/dos2unix -u | /usr/bin/msmtp -t -i" }}"
