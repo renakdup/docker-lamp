@@ -83,6 +83,11 @@ _All trace/profile/etc files will be available by `./tmp/xdebug` path._
     XDEBUG_MODE=trace XDEBUG_TRIGGER=1 php index.php
     ```
 
+## Helpful CLI commands
+```
+ wp search-replace "https://wp-yoda.com" "http://wp-yoda.loc" --all-tables --skip-plugins
+```
+
 ## Roadmap
 - [x] Implemented working LAMP
 - [x] Add mailhog

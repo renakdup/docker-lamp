@@ -8,4 +8,5 @@ server {
 	include include/gzip.conf;
 	include include/restrictions.conf;
 	include include/common.conf;
+	include include/wp-subdir-ms-rewrites.conf;
 }
