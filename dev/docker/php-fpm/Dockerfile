@@ -56,7 +56,6 @@ RUN set -xe; \
         https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions && \
     chmod +x /usr/local/bin/install-php-extensions && \
     install-php-extensions \
-      gmagick \
       gd \
       mysqli \
       pdo \
