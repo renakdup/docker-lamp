@@ -26,6 +26,7 @@ RUN set -xe; \
 RUN set -xe; \
     apt-get update; \
     apt-get -y install \
+      intl \
       libpng-dev \
       libonig-dev \
       libxml2-dev \
